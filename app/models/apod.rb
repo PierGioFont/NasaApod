@@ -1,0 +1,2 @@
+class Apod < ApplicationRecord
+end

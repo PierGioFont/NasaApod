@@ -1,0 +1,19 @@
+<h1></h1>
+<div class="container">
+  <h1 align="center">Astronomy Picture of the Day</h1>
+  <div class="row">
+    <% @apods.each do |apod| %>
+    <div class="col-xs-6 col-md-4" align="center">
+      <% if apod.picture? %>
+        <div class="card"
+          style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
+              url('<%= cl_image_path cocktail.picture.path, width: 240, height: 180, crop: :fill %>')">
+          <div class="card-category detail"><%= apod.title %></div>
+          <div class="card-description"></div>
+          <a class="card-link" href="<%= apod_path(apod.id) %>"></a>
+        </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>

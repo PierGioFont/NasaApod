@@ -1,2 +1,10 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <p>Find me in app/views/pages/home.html</p>
+  <div class="card text-center">
+    <img id="apod_img_id" width="800px" height="500px"/>
+  </div>
+
+  <div class="foot text-center">
+    <%= link_to "Go to photo List", apods_path, class: "btn btn-primary" %>
+  </div>
+</div>
