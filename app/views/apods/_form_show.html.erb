@@ -1,0 +1,14 @@
+<div class="text-center">
+
+  <p></p>
+  <%= @apod.explan %>
+  <p></p>
+  <p>
+    <%= link_to image_tag("nasablu.png", alt: "APOD of the day", size: "32x28"), @apod.url, target: :_blank %>
+  </p>
+  <p>
+    <%= link_to image_tag("hqdef.jpg", alt: " HD APOD of the day", size: "32x28"), @apod.hdurl, target: :_blank %>
+  </p>
+</div>
+
+<!-- -->

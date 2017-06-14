@@ -1,0 +1,22 @@
+<%= simple_form_for [@apod] do |f| %>
+  <div class="image text-center">
+    <% if @apod.new_record? %>
+      <p>This content will be added</p>
+    <% else %>
+      <p>image/video content</p>
+    <% end %>
+    <% if @apod.media_type == 'image' %>
+      <%= image_tag(@apod.url, size: "520x350") %>
+    <% else %>
+      <% if @apod.url[/youtu\.be\/([^\?]*)/] %>
+        <% @youtube_id = $1 %>
+      <% else %>
+        <% @apod.url[/^.*((v\/)|(embed\/)|(watch\?))\??v?=?([^\&\?]*).*/] %>
+        <% @youtube_id = $5 %>
+      <% end %>
+      <iframe title="Video" width="520" height="350" src=<%= "https://www.youtube.com/embed/#{ @youtube_id }" %> frameborder="0"></iframe>
+    <% end %>
+    <%= 'Media type: ' + @apod.media_type %>
+  </div>
+<% end %>
+

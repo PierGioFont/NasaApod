@@ -1,0 +1,22 @@
+.form-picture {
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: left;
+  flex-direction: row;
+  border: 1px solid $grey_platinum;
+  border-radius: 3px;
+  box-shadow: 1px, 1px, 3px, rgba(0, 0, 0, 0.3);
+  input, select {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    color: $gray;
+
+  }
+  label{
+    color: $gray-dark;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,21 @@
+<%= simple_form_for [@apod] do |f| %>
+  <% if @apod.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @apod.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :title %>
+  <%= f.input :date, readonly: true, :value => @apod.date %>
+  <%= f.input :explan %>
+  <%= f.input :url, readonly: true, :value => @apod.url %>
+  <%= f.input :hdurl, readonly: true, :value => @apod.hdurl %>
+  <%= f.hidden_field :media_type, :value => @apod.media_type %>
+  <%= f.hidden_field :copyright, :value => @apod.copyright %>
+  <%= f.submit "Save", class: "btn btn-success btn-md" %>
+<% end %>
+<%= link_to "Back to the list", apods_path, class: "btn btn-primary" %>
+<p></p>

@@ -1,19 +1,108 @@
-<h1></h1>
+  <!-- <%=  javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['API_KEY']}" %> -->
+  <%= javascript_tag do %>
+
+    $(document).ready(function() {
+      var url = '<%= @url.html_safe %>';
+
+      $.ajax({
+        url: url,
+        type: "json",
+        method: "get",
+        success: function(result){
+        if("copyright" in result) {
+          $("#copyright").text("Image Credits: " + result.copyright);
+        }
+        else {
+          $("#copyright").text("Image Credits: " + "Public Domain");
+        }
+
+        if(result.media_type == "video") {
+          $("#apod_img_id").css("display", "none");
+          $("#apod_vid_id").attr("src", result.url);
+          }
+        else {
+          $("#apod_vid_id").css("display", "none");
+          $("#apod_img_id").attr("src", result.url);
+          }
+        $("#reqObject").text(url);
+        $("#returnObject").text(JSON.stringify(result, null, 4));
+        $("#apod_explaination").text(result.explanation);
+        $("#apod_title").text(result.title);
+        }
+      });
+    });
+  <% end %>
+
+<div class="container text-center index">
+  <form class="form-picture">
+    <div class="form-getdate">
+      <Label>Date</Label>
+      <input type="text" class="form-control datepicker input-sm" data-provide='datepicker' data-date-format='yyyy-mm-dd' name="gotdate" value= <%= params[:gotdate] %>>
+    </div>
+    <div class="form-search">
+      <button type="submit" class="btn btn-success btn-lg">Search</button>
+    </div>
+  </form>
+</div>
+  <!-- FINE FORM DATE -->
 <div class="container">
   <h1 align="center">Astronomy Picture of the Day</h1>
+  <h2 align="center"><%= @ddate %></h2>
   <div class="row">
-    <% @apods.each do |apod| %>
-    <div class="col-xs-6 col-md-4" align="center">
-      <% if apod.picture? %>
-        <div class="card"
-          style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
-              url('<%= cl_image_path cocktail.picture.path, width: 240, height: 180, crop: :fill %>')">
-          <div class="card-category detail"><%= apod.title %></div>
-          <div class="card-description"></div>
-          <a class="card-link" href="<%= apod_path(apod.id) %>"></a>
+    <b>API URL investigated:</b>
+    <p>https://api.nasa.gov/planetary/apod</p>
+
+    <div class="image text-center">
+      <img id="apod_img_id" width="450px"/>
+    </div>
+    <div class="video">
+      <iframe id="apod_vid_id" type="text/html" width="640" height="385" frameborder="0"></iframe>
+      <p id="copyright"></p>
+    </div>
+    <h3 id="apod_title"></h3>
+    <p id="apod_explaination"></p>
+  </div>
+</div>
+<div class="foot text-center">
+  <%= link_to "Add this Picture to your Repository", new_apod_path(:nurl => @url.html_safe), class: "btn btn-primary" %>
+</div>
+
+<!-- Your cards code -->
+<div class="wrapper-grey padded">
+  <div class="container">
+    <h2 class="random-pictures text-center">Some saved pictures</h2>
+    <div class="row">
+      <% @apods.each do |apod| %>
+        <div class="col-xs-12 col-md-4">
+          <%= link_to apod_path(apod) do %>
+
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2))">
+              <% if apod.media_type == 'image' %>
+                <%= image_tag(apod.url, width: 360, height: 150) %>
+              <% else %>
+                <% if apod.url[/youtu\.be\/([^\?]*)/] %>
+                  <% @youtube_id = $1 %>
+                <% else %>
+                  <% apod.url[/^.*((v\/)|(embed\/)|(watch\?))\??v?=?([^\&\?]*).*/] %>
+                  <% @youtube_id = $5 %>
+                <% end %>
+                <iframe title="Video" width="360" height="150" src=<%= "https://www.youtube.com/embed/#{ @youtube_id }" %> frameborder="0"></iframe>
+              <% end %>
+              <div class="card-category text-center"><%= apod.title %></div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
-    <% end %>
   </div>
 </div>
+
+
+<% content_for(:after_js) do %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js" %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.datepicker').datepicker();
+    });
+  </script>
+<% end %>

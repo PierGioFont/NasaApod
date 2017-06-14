@@ -1,0 +1,13 @@
+<div class="container show">
+  <h1 align="center">Astronomy Picture of the Day</h1>
+  <h2 align="center"><%= @apod.date.strftime('%d/%m/%Y') %></h2>
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <%= render 'form_show' %>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <%= render 'image' %>
+    </div>
+  </div>
+  <%= link_to "Back to the list", apods_path, class: "btn btn-primary" %>
+</div>
