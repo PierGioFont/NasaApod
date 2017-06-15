@@ -70,7 +70,11 @@
 <!-- Your cards code -->
 <div class="wrapper-grey padded">
   <div class="container">
+  <% if current_user.nil? %>
     <h2 class="random-pictures text-center">Some saved pictures</h2>
+  <% else %>
+    <h2 class="random-pictures text-center">Your saved pictures</h2>
+  <% end %>
     <div class="row">
       <% @apods.each do |apod| %>
         <div class="col-xs-12 col-md-4">
