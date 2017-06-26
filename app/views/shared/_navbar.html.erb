@@ -7,22 +7,24 @@
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
-    <!-- Search form -->
-    <form action="" class="navbar-wagon-search">
-      <input type="text" class="navbar-wagon-search-input" placeholder="Search something">
-      <button type="submit" class="navbar-wagon-search-btn">
-        <i class="fa fa-search"></i>
-      </button>
-    </form>
-
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
 
+      <!-- Search form -->
+      <form action="<%= apods_path %>" class="navbar-wagon-search">
+        <input type="text" class="navbar-wagon-search-input" placeholder="Search by title" name="search_string">
+        <button type="submit" class="navbar-wagon-search-btn">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+
       <!-- Notification -->
-      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+      <%= link_to apods_path, class: "navbar-wagon-item navbar-wagon-link" do %>
         <div class="badge-container">
-          <i class="fa fa-envelope-o"></i>
-          <div class="badge badge-blue">3</div>
+          <i class="fa fa-picture-o"></i>
+          <% if current_user.apods.size %>
+            <div class="badge badge-blue"><%= current_user.apods.size %></div>
+          <% end %>
         </div>
       <% end %>
 

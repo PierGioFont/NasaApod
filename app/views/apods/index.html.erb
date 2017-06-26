@@ -37,7 +37,7 @@
   <form class="form-picture">
     <div class="form-getdate">
       <Label>Date</Label>
-      <input type="text" class="form-control datepicker input-sm" data-provide='datepicker' data-date-format='yyyy-mm-dd' name="gotdate" value= <%= params[:gotdate] %>>
+      <input type="text" class="form-control datepicker input-sm" data-provide='datepicker' data-date-format='yyyy-mm-dd' name="gotdate" placeholder="pick a date" value= <%= params[:gotdate] %>>
     </div>
     <div class="form-search">
       <button type="submit" class="btn btn-success btn-lg">Search</button>
@@ -73,7 +73,11 @@
   <% if current_user.nil? %>
     <h2 class="random-pictures text-center">Some saved pictures</h2>
   <% else %>
-    <h2 class="random-pictures text-center">Your saved pictures</h2>
+    <% if params[:search_string].nil? %>
+      <h2 class="random-pictures text-center">Your saved pictures</h2>
+    <% else %>
+      <h2 class="random-pictures text-center">Search results</h2>
+    <% end %>
   <% end %>
     <div class="row">
       <% @apods.each do |apod| %>

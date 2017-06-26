@@ -15,6 +15,9 @@ class ApodsController < ApplicationController
       @apods = Apod.limit(3).order("RANDOM()")
     else
       @apods = Apod.where('user_id = ?', current_user)
+      unless params[:search_string].nil?
+        custom_search(params[:search_string])
+      end
     end
   end
 
@@ -56,5 +59,9 @@ class ApodsController < ApplicationController
     #resp = Net::HTTP.get_response(URI.parse(url))
     #data = resp.body
     #@result = JSON.parse(data)
+  end
+
+  def custom_search(string)
+    @apods = Apod.where('lower(title) LIKE ?', '%' + string.downcase + '%').all
   end
 end

@@ -4,4 +4,8 @@ class PagesController < ApplicationController
   def home
     @apods = Apod.limit(1).order("RANDOM()")
   end
+
+  def index
+    byebug
+  end
 end
