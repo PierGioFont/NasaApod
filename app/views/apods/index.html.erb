@@ -46,7 +46,7 @@
   <!-- FINE FORM DATE -->
 <div class="container">
   <h1 align="center">Astronomy Picture of the Day</h1>
-  <h2 align="center"><%= @ddate %></h2>
+  <h2 align="center"><%= @ddate.strftime('%d/%m/%Y') %></h2>
   <div class="row">
     <b>API URL investigated:</b>
     <p>https://api.nasa.gov/planetary/apod</p>
