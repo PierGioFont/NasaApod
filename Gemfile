@@ -9,7 +9,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'redis'
 
-gem 'sass-rails'
+gem 'sassc'
 gem 'jquery-rails'
 gem 'uglifier'
 gem 'bootstrap-sass'
